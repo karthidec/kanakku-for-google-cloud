@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Security and privacy rules (always on)
 
 - Request the fewest permissions possible. Host permissions only for the Google Cloud console and the BigQuery API. Ask me before adding any permission or OAuth scope.

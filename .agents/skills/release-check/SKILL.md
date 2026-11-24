@@ -1,3 +1,8 @@
+---
+name: release-check
+description: Run pre-release build, lint, tests, security review, setup guide verification, and store listing checks. Use before cutting a release or via /release-check.
+---
+
 # /release-check
 
 1. Run build, lint, and the full test suite.

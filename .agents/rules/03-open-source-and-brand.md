@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Open source and brand rules
 
 - License: Apache 2.0.

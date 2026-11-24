@@ -1,3 +1,8 @@
+---
+name: security-review
+description: Audit permissions, network calls, DOM access, secrets, and privacy policy compliance. Use before releases, after permission/network changes, or via /security-review.
+---
+
 # /security-review
 
 1. List every permission, host permission, and OAuth scope in manifest.json, and explain why each is needed. Flag anything not strictly needed.

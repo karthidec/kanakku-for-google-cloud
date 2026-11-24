@@ -1,3 +1,8 @@
+---
+name: new-feature
+description: Plan, implement, test, and document a new feature for Kanakku for Google Cloud. Use when adding new functionality or triggered via /new-feature.
+---
+
 # /new-feature
 
 1. Read AGENTS.md and every file in .agents/rules.

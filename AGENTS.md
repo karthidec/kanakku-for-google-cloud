@@ -1,5 +1,7 @@
 # Project: Kanakku for Google Cloud
 
+Always follow every rule in .agents/rules, even if a rule fails to load automatically.
+
 - Full display name: "Kanakku for Google Cloud: price tags for your Google Cloud console"
 - Short name: "Kanakku" (Tamil for "accounts", pronounced KUH-nuk-koo)
 - GitHub repo: `kanakku-for-google-cloud`

@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Engineering rules (always on)
 
 - Before changing code, write an implementation plan and wait for my approval when the change touches more than 3 files.
