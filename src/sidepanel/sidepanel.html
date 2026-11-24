@@ -18,9 +18,28 @@
         </div>
       </header>
 
-      <section class="status-card" aria-live="polite">
+      <section id="empty-state" class="status-card" aria-live="polite">
         <p id="status-message" class="status-message">
           Open a Google Cloud resource to see its cost.
+        </p>
+      </section>
+
+      <section id="resource-card" class="status-card hidden" aria-live="polite">
+        <span id="service-badge" class="service-badge"></span>
+        <h2 id="resource-name" class="resource-name"></h2>
+        <dl class="resource-meta">
+          <div class="meta-row">
+            <dt>Project</dt>
+            <dd id="resource-project"></dd>
+          </div>
+          <div id="region-row" class="meta-row hidden">
+            <dt>Region / Zone</dt>
+            <dd id="resource-region"></dd>
+          </div>
+        </dl>
+        <p class="cost-placeholder">
+          Cost lookup will appear here once BigQuery billing export is
+          connected.
         </p>
       </section>
 

@@ -12,10 +12,10 @@ Kanakku for Google Cloud is an independent community project and is not affiliat
 
 ## What the Current Version (`0.1.0`) Accesses
 
-- **Chrome permissions:** Only `sidePanel` (used to open the side panel when you click the extension toolbar icon).
-- **Page content:** None. Kanakku does not read webpage DOM content.
-- **Network requests:** None.
-- **Local storage:** None.
+- **Chrome permissions:** `sidePanel` (used to open the side panel when you click the extension toolbar icon) and host permission for `https://console.cloud.google.com/*` (used solely to read the active tab's URL when you are on the Google Cloud console).
+- **Page content:** None. Kanakku never reads webpage DOM content, form values, or console text.
+- **Network requests:** None yet.
+- **Local storage:** None yet.
 
 ## Planned Future Data Access
 

@@ -27,7 +27,9 @@ describe('manifest.json', () => {
     expect(manifest.manifest_version).toBe(3);
     expect(manifest.name).toBe('Kanakku for Google Cloud');
     expect(manifest.permissions).toEqual(['sidePanel']);
-    expect(manifest.host_permissions).toBeUndefined();
+    expect(manifest.host_permissions).toEqual([
+      'https://console.cloud.google.com/*',
+    ]);
   });
 
   it('configures service worker, side panel, and options page', () => {
