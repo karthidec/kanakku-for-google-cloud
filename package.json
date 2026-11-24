@@ -1,0 +1,28 @@
+{
+  "name": "kanakku-for-google-cloud",
+  "version": "0.1.0",
+  "description": "Kanakku for Google Cloud: price tags for your Google Cloud console",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests esbuild.config.mjs vitest.config.ts",
+    "format": "prettier --write \"src/**/*.{ts,html,css,json}\" \"tests/**/*.ts\" esbuild.config.mjs eslint.config.mjs vitest.config.ts package.json tsconfig.json",
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,json}\" \"tests/**/*.ts\" esbuild.config.mjs eslint.config.mjs vitest.config.ts package.json tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.10.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.6"
+  }
+}

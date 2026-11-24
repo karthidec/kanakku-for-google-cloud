@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanakku for Google Cloud</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <header class="panel-header">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">₹</span>
+          <div>
+            <h1>Kanakku for Google Cloud</h1>
+            <p class="subtitle">Price tags for your Google Cloud console</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="status-card" aria-live="polite">
+        <p id="status-message" class="status-message">
+          Open a Google Cloud resource to see its cost.
+        </p>
+      </section>
+
+      <footer class="panel-footer">
+        <p>
+          Independent community project — not affiliated with or endorsed by
+          Google.
+        </p>
+      </footer>
+    </main>
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>

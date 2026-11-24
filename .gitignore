@@ -1,1 +1,23 @@
-.agents/mcp_config.json.agents/mcp_config.json
+# Build & dependencies
+node_modules/
+dist/
+coverage/
+
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+client_secret*.json
+
+# Local data & billing exports
+*.local
+data/
+local-data/
+*.csv
+*.jsonl
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
