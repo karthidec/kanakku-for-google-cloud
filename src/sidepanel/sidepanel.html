@@ -18,6 +18,10 @@
         </div>
       </header>
 
+      <div id="loading-banner" class="loading-banner hidden" aria-live="polite">
+        Fetching costs from BigQuery…
+      </div>
+
       <section id="empty-state" class="status-card" aria-live="polite">
         <p id="status-message" class="status-message">
           Open a Google Cloud resource to see its cost.
@@ -25,8 +29,13 @@
       </section>
 
       <section id="resource-card" class="status-card hidden" aria-live="polite">
-        <span id="service-badge" class="service-badge"></span>
+        <div class="card-top">
+          <span id="service-badge" class="service-badge"></span>
+          <span id="precision-badge" class="precision-badge hidden"></span>
+        </div>
+
         <h2 id="resource-name" class="resource-name"></h2>
+
         <dl class="resource-meta">
           <div class="meta-row">
             <dt>Project</dt>
@@ -37,10 +46,136 @@
             <dd id="resource-region"></dd>
           </div>
         </dl>
-        <p class="cost-placeholder">
-          Cost lookup will appear here once BigQuery billing export is
-          connected.
-        </p>
+
+        <div id="cost-section" class="cost-section hidden">
+          <div class="cost-label">Final price this month (what you pay)</div>
+          <div class="cost-primary" id="cost-after-credits"></div>
+          <div id="cost-savings-badge" class="savings-pill hidden"></div>
+
+          <dl id="cost-waterfall" class="waterfall">
+            <div class="waterfall-row">
+              <dt>List price</dt>
+              <dd id="cost-list-price"></dd>
+            </div>
+            <div id="cost-contract-row" class="waterfall-row hidden">
+              <dt>Contract discount</dt>
+              <dd id="cost-contract-discount"></dd>
+            </div>
+            <div class="waterfall-row">
+              <dt>Before credits</dt>
+              <dd id="cost-before-discounts"></dd>
+            </div>
+            <div class="waterfall-row">
+              <dt>CUD credits</dt>
+              <dd id="cost-cud-credits"></dd>
+            </div>
+            <div id="cost-other-credits-row" class="waterfall-row hidden">
+              <dt>Other credits</dt>
+              <dd id="cost-other-credits"></dd>
+            </div>
+          </dl>
+
+          <div id="cost-estimate-row" class="cost-secondary hidden">
+            Month-end pace: <span id="cost-estimate"></span> (estimated)
+          </div>
+          <div class="cost-change" id="cost-percent-change"></div>
+
+          <ul id="insights-list" class="insights-list hidden"></ul>
+
+          <div class="chart-header">
+            <span>Last 30 days</span>
+            <button id="refresh-btn" type="button" class="link-btn">
+              Refresh
+            </button>
+          </div>
+          <div id="daily-chart" class="daily-chart"></div>
+
+          <div class="freshness-row" id="freshness-label"></div>
+        </div>
+
+        <div id="list-section" class="cost-section hidden">
+          <div class="cost-label">Total final price this month</div>
+          <div class="cost-primary" id="list-after-credits"></div>
+          <div id="list-savings-badge" class="savings-pill hidden"></div>
+
+          <dl class="waterfall">
+            <div class="waterfall-row">
+              <dt>List price</dt>
+              <dd id="list-list-price"></dd>
+            </div>
+            <div id="list-contract-row" class="waterfall-row hidden">
+              <dt>Contract discount</dt>
+              <dd id="list-contract-discount"></dd>
+            </div>
+            <div class="waterfall-row">
+              <dt>Before credits</dt>
+              <dd id="list-before-discounts"></dd>
+            </div>
+            <div class="waterfall-row">
+              <dt>CUD credits</dt>
+              <dd id="list-cud-credits"></dd>
+            </div>
+            <div id="list-other-credits-row" class="waterfall-row hidden">
+              <dt>Other credits</dt>
+              <dd id="list-other-credits"></dd>
+            </div>
+          </dl>
+
+          <ul id="list-insights-list" class="insights-list hidden"></ul>
+
+          <div class="chart-header">
+            <span>Cost by resource</span>
+            <button id="list-refresh-btn" type="button" class="link-btn">
+              Refresh
+            </button>
+          </div>
+          <ul id="breakdown-list" class="breakdown-list"></ul>
+          <p class="list-tip">
+            Click any resource in the console to see its 30-day chart and
+            insights.
+          </p>
+          <div class="freshness-row" id="list-freshness-label"></div>
+        </div>
+
+        <div id="executive-summary-card" class="summary-box hidden">
+          <div class="summary-header">
+            <span class="summary-title">Executive Summary</span>
+            <span id="summary-source-badge" class="precision-badge"></span>
+          </div>
+          <p id="executive-summary-text" class="summary-text"></p>
+          <p id="executive-summary-note" class="summary-note hidden"></p>
+        </div>
+
+        <div id="card-actions" class="card-actions hidden">
+          <button id="copy-summary-btn" type="button" class="btn-secondary">
+            Copy summary
+          </button>
+          <a
+            id="billing-link"
+            href="https://console.cloud.google.com/billing"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-btn"
+          >
+            View in Cloud Billing →
+          </a>
+        </div>
+
+        <div id="notice-section" class="notice-section hidden">
+          <p id="notice-message" class="notice-message"></p>
+          <ol id="setup-checklist" class="setup-checklist hidden">
+            <li>Sign in with Google in Settings</li>
+            <li>Enter your BigQuery summary table</li>
+            <li>Click Test connection</li>
+          </ol>
+          <button
+            id="open-settings-btn"
+            type="button"
+            class="btn-secondary hidden"
+          >
+            Open Settings
+          </button>
+        </div>
       </section>
 
       <footer class="panel-footer">

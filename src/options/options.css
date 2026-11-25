@@ -5,6 +5,13 @@
   --border: #e2e8f0;
   --text: #0f172a;
   --muted: #475569;
+  --accent: #0f766e;
+  --accent-text: #ffffff;
+  --danger: #b91c1c;
+  --ok-bg: #ecfdf5;
+  --ok-text: #065f46;
+  --err-bg: #fef2f2;
+  --err-text: #991b1b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +21,13 @@
     --border: #334155;
     --text: #f8fafc;
     --muted: #94a3b8;
+    --accent: #14b8a6;
+    --accent-text: #0f172a;
+    --danger: #ef4444;
+    --ok-bg: #064e3b;
+    --ok-text: #a7f3d0;
+    --err-bg: #7f1d1d;
+    --err-text: #fecaca;
   }
 }
 
@@ -55,17 +69,112 @@ body {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .card h2 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 16px;
 }
 
-.card p {
+.hint {
   margin: 0;
   color: var(--muted);
+  font-size: 13px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   font-size: 14px;
+  font-weight: 500;
+}
+
+.field input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.checkbox-field small {
+  color: var(--muted);
+}
+
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.status-text {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status-banner {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.status-banner.ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+
+.status-banner.error {
+  background: var(--err-bg);
+  color: var(--err-text);
+}
+
+.hidden {
+  display: none;
 }
 
 .footer {

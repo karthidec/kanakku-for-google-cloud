@@ -7,6 +7,10 @@ interface ManifestV3 {
   name: string;
   permissions: string[];
   host_permissions?: string[];
+  oauth2?: {
+    client_id: string;
+    scopes: string[];
+  };
   background: {
     service_worker: string;
     type?: string;
@@ -23,12 +27,17 @@ describe('manifest.json', () => {
   const manifestPath = resolve(process.cwd(), 'src/manifest.json');
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as ManifestV3;
 
-  it('uses Manifest V3 with minimal permissions', () => {
+  it('uses Manifest V3 with minimal permissions and read-only BigQuery scope', () => {
     expect(manifest.manifest_version).toBe(3);
     expect(manifest.name).toBe('Kanakku for Google Cloud');
-    expect(manifest.permissions).toEqual(['sidePanel']);
+    expect(manifest.permissions).toEqual(['sidePanel', 'identity', 'storage']);
     expect(manifest.host_permissions).toEqual([
       'https://console.cloud.google.com/*',
+      'https://bigquery.googleapis.com/*',
+      'https://generativelanguage.googleapis.com/*',
+    ]);
+    expect(manifest.oauth2?.scopes).toEqual([
+      'https://www.googleapis.com/auth/bigquery.readonly',
     ]);
   });
 

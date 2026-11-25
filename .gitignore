@@ -6,6 +6,7 @@ coverage/
 # Environment & secrets
 .env
 .env.*
+oauth.local.json
 *.pem
 *.key
 client_secret*.json

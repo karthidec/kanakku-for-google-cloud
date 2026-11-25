@@ -10,15 +10,137 @@
     <main class="container">
       <header class="header">
         <h1>Kanakku for Google Cloud</h1>
-        <p class="subtitle">Extension settings</p>
+        <p class="subtitle">
+          Read-only settings for your BigQuery billing export
+        </p>
       </header>
 
       <section class="card">
-        <h2>BigQuery Billing Export</h2>
-        <p>
-          Billing project, dataset, and daily summary table settings will be
-          configured here once BigQuery integration is added.
+        <h2>Google Sign-In</h2>
+        <p class="hint">
+          Uses read-only BigQuery access (<code>bigquery.readonly</code>) from
+          your browser only.
         </p>
+        <div class="actions-row">
+          <button id="sign-in-btn" type="button" class="btn btn-primary">
+            Sign in with Google
+          </button>
+          <span id="auth-status" class="status-text" aria-live="polite">
+            Checking sign-in status…
+          </span>
+        </div>
+      </section>
+
+      <form id="settings-form" class="card">
+        <h2>BigQuery Billing Export</h2>
+
+        <label class="field">
+          <span>Billing export project ID</span>
+          <input
+            id="billing-project-id"
+            name="billingProjectId"
+            type="text"
+            placeholder="my-billing-project"
+            autocomplete="off"
+          />
+        </label>
+
+        <label class="field">
+          <span>Dataset name</span>
+          <input
+            id="dataset-name"
+            name="datasetName"
+            type="text"
+            placeholder="billing_export"
+            autocomplete="off"
+          />
+        </label>
+
+        <label class="field">
+          <span>Summary table name</span>
+          <input
+            id="summary-table-name"
+            name="summaryTableName"
+            type="text"
+            placeholder="daily_resource_costs"
+            autocomplete="off"
+          />
+        </label>
+
+        <label class="field">
+          <span>Cache time (minutes)</span>
+          <input
+            id="cache-minutes"
+            name="cacheMinutes"
+            type="number"
+            min="1"
+            max="1440"
+            value="60"
+          />
+        </label>
+
+        <label class="field">
+          <span>Monthly spend alert threshold (0 = off)</span>
+          <input
+            id="monthly-alert-threshold"
+            name="monthlyAlertThreshold"
+            type="number"
+            min="0"
+            step="1"
+            value="0"
+          />
+        </label>
+
+        <label class="checkbox-field">
+          <input
+            id="ai-explanations"
+            name="aiExplanationsEnabled"
+            type="checkbox"
+          />
+          <span>
+            AI explanations
+            <small>(off by default — uses your own Gemini API key)</small>
+          </span>
+        </label>
+
+        <label class="field">
+          <span>Gemini API key (optional)</span>
+          <input
+            id="gemini-api-key"
+            name="geminiApiKey"
+            type="password"
+            placeholder="Leave blank to use Standard Summary"
+            autocomplete="off"
+          />
+        </label>
+
+        <div class="actions-row">
+          <button id="save-btn" type="submit" class="btn btn-primary">
+            Save settings
+          </button>
+          <button id="test-btn" type="button" class="btn btn-secondary">
+            Test connection
+          </button>
+        </div>
+
+        <p
+          id="connection-status"
+          class="status-banner hidden"
+          aria-live="polite"
+        ></p>
+      </form>
+
+      <section class="card danger-card">
+        <h2>Local Data</h2>
+        <p class="hint">
+          Remove all saved settings, cached query results, and sign-in tokens
+          from this browser.
+        </p>
+        <div class="actions-row">
+          <button id="clear-btn" type="button" class="btn btn-danger">
+            Clear all data
+          </button>
+        </div>
       </section>
 
       <footer class="footer">
