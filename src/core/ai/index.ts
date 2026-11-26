@@ -97,9 +97,17 @@ export async function generateExecutiveSummary(
     });
 
     if (!response.ok) {
+      const reason =
+        response.status === 400
+          ? 'invalid API key'
+          : response.status === 403
+            ? 'API key restricted or Generative Language API disabled'
+            : response.status === 429
+              ? 'quota exceeded'
+              : `HTTP ${response.status}`;
       return {
         ...standard,
-        note: 'Gemini request failed — showing standard summary.',
+        note: `Gemini request failed (${reason}) — showing standard summary.`,
       };
     }
 

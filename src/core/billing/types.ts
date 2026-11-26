@@ -44,6 +44,7 @@ export interface ResourceCostSummary {
 
 export interface ServiceBreakdownItem {
   resourceName: string;
+  region?: string | null;
   currency: string;
   costBeforeDiscounts: number;
   cudCredits: number;

@@ -105,7 +105,8 @@ export function buildServiceBreakdownQuery(target: BigQueryTarget): string {
   SUM(CAST(IFNULL(cud_credits, 0) AS FLOAT64)) AS cud_credits,
   SUM(CAST(IFNULL(other_credits, 0) AS FLOAT64)) AS other_credits,
   SUM(CAST(cost_after_credits AS FLOAT64)) AS cost_after_credits,
-  FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%SZ', MAX(latest_usage_time)) AS latest_usage_time
+  FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%SZ', MAX(latest_usage_time)) AS latest_usage_time,
+  ANY_VALUE(NULLIF(region, '')) AS region
 FROM \`${project}.${dataset}.${table}\`
 WHERE usage_date >= DATE_TRUNC(CURRENT_DATE(), MONTH)
   AND project_id = @projectId

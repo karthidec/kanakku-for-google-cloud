@@ -66,10 +66,11 @@ function parseServiceListSegments(
   projectId: string,
 ): ServiceListIdentity | null {
   if (
-    (segments.length === 1 && segments[0] === 'run') ||
-    (segments.length === 2 &&
-      segments[0] === 'run' &&
-      segments[1] === 'services')
+    segments[0] === 'run' &&
+    (segments.length === 1 ||
+      segments[1] === 'services' ||
+      segments[1] === 'overview' ||
+      segments[1] === 'jobs')
   ) {
     return { projectId, serviceType: 'cloud-run' };
   }

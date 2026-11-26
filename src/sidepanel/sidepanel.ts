@@ -412,7 +412,9 @@ export function renderSidePanel(
 
         const nameSpan = doc.createElement('span');
         nameSpan.className = 'breakdown-name';
-        nameSpan.textContent = item.resourceName;
+        nameSpan.textContent = item.region
+          ? `${item.resourceName} · ${item.region}`
+          : item.resourceName;
 
         const costSpan = doc.createElement('span');
         costSpan.className = 'breakdown-cost';

@@ -88,6 +88,7 @@ function aggregateGroupedRows(
     const other = Number(cells[5]?.v ?? 0) || 0;
     const after = Number(cells[6]?.v ?? 0) || 0;
     const usageTime = cells[7]?.v ?? null;
+    const region = cells[8]?.v ?? null;
 
     currency = rowCurrency;
     listPrice += rowList > 0 ? rowList : before;
@@ -101,6 +102,7 @@ function aggregateGroupedRows(
 
     items.push({
       resourceName,
+      region,
       currency: rowCurrency,
       costBeforeDiscounts: before,
       cudCredits: cud,
