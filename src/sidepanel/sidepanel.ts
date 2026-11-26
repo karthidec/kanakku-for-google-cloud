@@ -1,6 +1,7 @@
 import type {
   ActiveConsoleIdentity,
   ExecutiveSummaryPayload,
+  ServiceBreakdownItem,
   SidePanelCostState,
 } from '../core/billing/types';
 import {
@@ -9,6 +10,7 @@ import {
   formatPercentChange,
 } from '../core/format';
 import {
+  estimateBurnRate,
   estimateMonthEndCost,
   evaluateCostInsights,
   evaluateListInsights,
@@ -18,6 +20,7 @@ import {
 import type { ServiceType } from '../core/url/types';
 import type { ExtensionMessage } from '../shared/messages';
 import { renderDailyChart } from './chart';
+import { buildBreakdownCsv } from './csv';
 import { EMPTY_STATE_MESSAGE } from './messages';
 
 const SERVICE_LABELS: Record<ServiceType, string> = {
@@ -45,6 +48,42 @@ const SERVICE_LIST_LABELS: Record<ServiceType, string> = {
 };
 
 let lastSummaryText = '';
+let lastBreakdownItems: ServiceBreakdownItem[] = [];
+let lastCsvFilename = 'kanakku-costs.csv';
+
+function renderBudgetBar(
+  doc: Document,
+  prefix: 'cost' | 'list',
+  spent: number,
+  threshold: number,
+  currency: string,
+): void {
+  const box = doc.getElementById(`${prefix}-budget-box`);
+  const label = doc.getElementById(`${prefix}-budget-label`);
+  const fill = doc.getElementById(
+    `${prefix}-budget-fill`,
+  ) as HTMLElement | null;
+
+  if (!box || threshold <= 0) {
+    box?.classList.add('hidden');
+    return;
+  }
+
+  const pct = Math.max(0, Math.round((spent / threshold) * 100));
+  if (label) {
+    label.textContent = `${formatMoney(spent, currency)} / ${formatMoney(threshold, currency)} (${pct}%)`;
+  }
+  if (fill) {
+    fill.style.width = `${Math.min(100, pct)}%`;
+    fill.classList.remove('warn', 'over');
+    if (pct >= 100) {
+      fill.classList.add('over');
+    } else if (pct >= 75) {
+      fill.classList.add('warn');
+    }
+  }
+  box.classList.remove('hidden');
+}
 
 function renderIdentityHeader(
   target: ActiveConsoleIdentity,
@@ -307,6 +346,7 @@ export function renderSidePanel(
     emptyState?.classList.remove('hidden');
     resourceCard?.classList.add('hidden');
     lastSummaryText = '';
+    lastBreakdownItems = [];
     return;
   }
 
@@ -364,6 +404,12 @@ export function renderSidePanel(
     const { breakdown } = state;
     doc.getElementById('cost-section')?.classList.add('hidden');
     doc.getElementById('list-section')?.classList.remove('hidden');
+    doc.getElementById('export-csv-btn')?.classList.remove('hidden');
+    lastBreakdownItems = breakdown.items;
+    lastCsvFilename =
+      state.status === 'loaded_project'
+        ? `kanakku-${state.project.projectId}-services.csv`
+        : `kanakku-${state.list.projectId}-${state.list.serviceType}.csv`;
 
     const precisionBadge = doc.getElementById('precision-badge');
     if (precisionBadge) {
@@ -402,6 +448,13 @@ export function renderSidePanel(
             state.monthlyAlertThreshold,
           );
     renderInsights(doc.getElementById('list-insights-list'), insights, doc);
+    renderBudgetBar(
+      doc,
+      'list',
+      breakdown.totalAfterCredits,
+      state.monthlyAlertThreshold,
+      breakdown.currency,
+    );
 
     const breakdownList = doc.getElementById('breakdown-list');
     if (breakdownList) {
@@ -456,6 +509,8 @@ export function renderSidePanel(
   const { summary } = state;
   doc.getElementById('list-section')?.classList.add('hidden');
   doc.getElementById('cost-section')?.classList.remove('hidden');
+  doc.getElementById('export-csv-btn')?.classList.add('hidden');
+  lastBreakdownItems = [];
 
   const precisionBadge = doc.getElementById('precision-badge');
   if (precisionBadge) {
@@ -493,6 +548,27 @@ export function renderSidePanel(
   } else {
     estimateRow?.classList.add('hidden');
   }
+
+  const burnRow = doc.getElementById('cost-burn-row');
+  const burnEl = doc.getElementById('cost-burn-rate');
+  const burnRate = estimateBurnRate(summary);
+  if (burnRate !== null) {
+    if (burnEl) {
+      const suffix = burnRate.beforeCreditsOnly ? ' before credits' : '';
+      burnEl.textContent = `~${formatMoney(burnRate.daily, summary.currency)}/day · ~${formatMoney(burnRate.hourly, summary.currency)}/hr${suffix}`;
+    }
+    burnRow?.classList.remove('hidden');
+  } else {
+    burnRow?.classList.add('hidden');
+  }
+
+  renderBudgetBar(
+    doc,
+    'cost',
+    summary.thisMonthAfterCredits,
+    state.monthlyAlertThreshold,
+    summary.currency,
+  );
 
   const changeEl = doc.getElementById('cost-percent-change');
   if (changeEl) {
@@ -584,6 +660,20 @@ function initSidePanel(): void {
         copyBtn.textContent = 'Copy summary';
       }, 1500);
     });
+  });
+
+  document.getElementById('export-csv-btn')?.addEventListener('click', () => {
+    if (lastBreakdownItems.length === 0) {
+      return;
+    }
+    const csv = buildBreakdownCsv(lastBreakdownItems);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = lastCsvFilename;
+    link.click();
+    URL.revokeObjectURL(url);
   });
 
   if (typeof chrome === 'undefined' || !chrome.runtime) {

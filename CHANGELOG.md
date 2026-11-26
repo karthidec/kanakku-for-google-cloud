@@ -5,6 +5,8 @@ All notable changes to Kanakku for Google Cloud are documented in this file.
 ## [0.1.0] - 2026-11-24
 
 ### Added
+- Budget pacing bar (when Monthly spend alert threshold > 0), estimated daily/hourly burn rate (`estimated`), and one-click **Download CSV** export on Service List and Project Overview views.
+- Original geometric price-tag + ledger-bars Kanakku logo (`src/icons/` and side panel SVG header), replacing the `₹` placeholder, plus refreshed side panel header and framed 30-day chart well (`30d ago` → `Today`).
 - Automatic eviction of expired cached OAuth tokens on HTTP 401.
 - Support for **Cloud SQL** (`/sql/instances`), **Cloud Pub/Sub** (`/cloudpubsub`), and **Artifact Registry** (`/artifacts`), plus side panel DOM rendering tests.
 - Project-wide **Executive Home** view (`/home/dashboard`, `/welcome`) showing all project services ranked by spend.

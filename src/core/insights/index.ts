@@ -31,6 +31,40 @@ export function estimateMonthEndCost(
   return (summary.thisMonthAfterCredits / dayOfMonth) * daysInMonth;
 }
 
+export interface BurnRateEstimate {
+  daily: number;
+  hourly: number;
+  beforeCreditsOnly: boolean;
+}
+
+/**
+ * Estimates recent daily and hourly burn rate from active days in the last 7 days.
+ */
+export function estimateBurnRate(
+  summary: ResourceCostSummary,
+): BurnRateEstimate | null {
+  const recent = summary.dailySeries.slice(-7);
+  const activeAfter = recent
+    .map((p) => p.costAfterCredits)
+    .filter((cost) => cost > 0);
+  if (activeAfter.length > 0) {
+    const daily =
+      activeAfter.reduce((sum, v) => sum + v, 0) / activeAfter.length;
+    return { daily, hourly: daily / 24, beforeCreditsOnly: false };
+  }
+
+  const activeBefore = recent
+    .map((p) => p.costBeforeDiscounts)
+    .filter((cost) => cost > 0);
+  if (activeBefore.length === 0) {
+    return null;
+  }
+
+  const daily =
+    activeBefore.reduce((sum, v) => sum + v, 0) / activeBefore.length;
+  return { daily, hourly: daily / 24, beforeCreditsOnly: true };
+}
+
 function checkHighSpendAlert(
   amount: number,
   currency: string,
