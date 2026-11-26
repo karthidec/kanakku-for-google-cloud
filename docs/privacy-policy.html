@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — Kanakku for Google Cloud</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .muted {
+        color: #475569;
+      }
+      a {
+        color: #1e1b4b;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Privacy Policy</h1>
+      <p class="muted">Last updated: 2026-11-26</p>
+      <p>
+        Kanakku for Google Cloud is an independent community project and is not
+        affiliated with or endorsed by Google.
+      </p>
+
+      <h2>Summary</h2>
+      <ul>
+        <li>
+          <strong>No developer servers:</strong> Kanakku has no backend
+          servers, no analytics, and no telemetry.
+        </li>
+        <li>
+          <strong>Data stays in your browser:</strong> Billing data is queried
+          directly from your own Google Cloud BigQuery export to your browser.
+        </li>
+        <li>
+          <strong>Read-only:</strong> Kanakku never creates, modifies, or
+          deletes Google Cloud resources.
+        </li>
+      </ul>
+
+      <h2>What Kanakku Accesses</h2>
+      <ul>
+        <li>
+          <strong>Chrome permissions:</strong> <code>sidePanel</code>,
+          <code>identity</code> (read-only scope
+          <code>https://www.googleapis.com/auth/bigquery.readonly</code>), and
+          <code>storage</code> (for settings and short-lived local cache in
+          <code>chrome.storage.local</code>).
+        </li>
+        <li>
+          <strong>Google Cloud Console URLs:</strong> Reads only the active
+          <code>https://console.cloud.google.com/*</code> tab URL. Never reads
+          webpage DOM content, form values, or console text.
+        </li>
+        <li>
+          <strong>BigQuery API:</strong> Queries only your configured
+          <code>daily_resource_costs</code> summary table via
+          <code>https://bigquery.googleapis.com/*</code>.
+        </li>
+        <li>
+          <strong>Optional Gemini API:</strong> Off by default. Used only if you
+          enable AI explanations and provide your own Gemini API key, sending
+          only the small visible cost summary.
+        </li>
+      </ul>
+
+      <h2>Deleting Your Data</h2>
+      <p>
+        You can clear all saved settings, optional API keys, cached cost
+        summaries, and OAuth tokens at any time using the
+        <strong>Clear all data</strong> button on the extension's Options page.
+      </p>
+
+      <p><a href="index.html">← Back to Home</a></p>
+    </main>
+  </body>
+</html>

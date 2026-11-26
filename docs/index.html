@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Paste Google Search Console meta verification tag here if using HTML tag verification -->
+    <title>Kanakku for Google Cloud</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --border: #e2e8f0;
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #1e1b4b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f172a;
+          --surface: #1e293b;
+          --border: #334155;
+          --text: #f8fafc;
+          --muted: #94a3b8;
+          --accent: #38bdf8;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      header {
+        margin-bottom: 28px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .shots {
+        display: grid;
+        gap: 16px;
+      }
+      .shots img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 24px;
+        font-size: 14px;
+      }
+      a {
+        color: var(--accent);
+      }
+      footer {
+        margin-top: 32px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <h1>Kanakku for Google Cloud</h1>
+        <p class="lead">
+          Price tags for your Google Cloud console — see resource costs, CUD
+          savings, 30-day trends, and waste alerts right inside Chrome's side
+          panel.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>What Kanakku Does</h2>
+        <ul>
+          <li>
+            Reads only the active <code>console.cloud.google.com</code> URL to
+            identify the project, service, or resource (never scrapes page DOM
+            content).
+          </li>
+          <li>
+            Queries your own BigQuery Cloud Billing daily summary table
+            (<code>daily_resource_costs</code>) directly from your browser using
+            read-only OAuth (<code>bigquery.readonly</code>).
+          </li>
+          <li>
+            Displays Final price, List price, Contract discounts, CUD credits,
+            Other credits, 30-day trend, burn rate, and Action Required alerts.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card shots">
+        <h2>Screenshots</h2>
+        <img
+          src="images/kanakku-1.png"
+          alt="Kanakku for Google Cloud resource cost side panel"
+        />
+        <img
+          src="images/kanakku-2.png"
+          alt="Kanakku for Google Cloud service overview and cost waterfall"
+        />
+      </section>
+
+      <nav>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="https://github.com/karthidec/kanakku-for-google-cloud"
+          >GitHub Repository</a
+        >
+      </nav>
+
+      <footer>
+        <p>
+          Kanakku for Google Cloud is an independent community project and is
+          not affiliated with or endorsed by Google. Licensed under Apache 2.0.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
