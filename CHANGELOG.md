@@ -2,6 +2,11 @@
 
 All notable changes to Kanakku for Google Cloud are documented in this file.
 
+## [0.1.1] - 2026-11-28
+
+### Changed
+- Bumped extension version to `0.1.1` for Chrome Web Store package update.
+
 ## [0.1.0] - 2026-11-24
 
 ### Added

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Kanakku for Google Cloud",
   "short_name": "Kanakku",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Price tags for your Google Cloud console — see resource costs from your own BigQuery billing export.",
   "permissions": ["sidePanel", "identity", "storage"],
   "host_permissions": [

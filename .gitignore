@@ -2,6 +2,7 @@
 node_modules/
 dist/
 coverage/
+*.zip
 
 # Environment & secrets
 .env

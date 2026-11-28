@@ -1,6 +1,6 @@
 {
   "name": "kanakku-for-google-cloud",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Kanakku for Google Cloud: price tags for your Google Cloud console",
   "private": true,
   "type": "module",
